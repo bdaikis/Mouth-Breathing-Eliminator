@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "agent",
+            "prompt": "A file was just edited or written. The tool input is: $ARGUMENTS\n\nExtract the file_path from the tool input. Then:\n1. Read the modified file to understand its current content and purpose.\n2. Read the existing progress.md file at the project root (if it exists).\n3. Append a new entry to progress.md with:\n   - Date and time (use today's date)\n   - The file that was changed (relative path from project root)\n   - A concise summary of what changed and what the code does\n   - Any notable patterns, logic, or purpose introduced or modified\n\nFormat each entry like:\n## [YYYY-MM-DD HH:MM] <filename>\n**Changed:** <brief what changed>\n**Purpose:** <what the code does / why it matters>\n\nDo NOT update progress.md if the file being saved IS progress.md itself. Do NOT update progress.md for changes to .claude/ config files.",
+            "timeout": 60,
+            "statusMessage": "Updating progress.md..."
+          }
+        ]
+      }
+    ]
+  }
+}
